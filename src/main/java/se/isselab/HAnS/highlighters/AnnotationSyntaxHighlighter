@@ -1,1 +1,24 @@
+package se.isselab.HAnS.highlighter;
 
+import com.intellij.openapi.editor.colors.TextAttributesKey;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import se.isselab.HAnS.states.ToggleStateService;
+
+import java.awt.*;
+
+public class AnnotationSyntaxHighlighter {
+    public static final TextAttributesKey HIDDEN_ANNOTATION = TextAttributesKey.createTextAttributesKey("HIDDEN_ANNOTATION");
+
+    static {
+        TextAttributes hiddenAttributes = new TextAttributes();
+        hiddenAttributes.setForegroundColor(Color.GRAY);
+        hiddenAttributes.setEffectColor(Color.LIGHT_GRAY);
+        HIDDEN_ANNOTATION.setDefaultAttributes(hiddenAttributes);
+    }
+
+    public static TextAttributesKey getAnnotationTextAttributes() {
+        return ToggleStateService.getInstance().isAnnotationsVisible() 
+               ? TextAttributesKey.createTextAttributesKey("ANNOTATION_VISIBLE") 
+               : HIDDEN_ANNOTATION;
+    }
+}
