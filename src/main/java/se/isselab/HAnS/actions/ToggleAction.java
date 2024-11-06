@@ -18,6 +18,7 @@ public class ToggleAction extends com.intellij.openapi.actionSystem.ToggleAction
 
         ToggleStateService service = project.getService(ToggleStateService.class);
         return service.getState().isEnabled;
+        return service.isAnnotationVisible();
     }
 
     @Override
@@ -30,6 +31,7 @@ public class ToggleAction extends com.intellij.openapi.actionSystem.ToggleAction
         ToggleStateService service = project.getService(ToggleStateService.class);
         LOG.info("ToggleAction executed. Annotations " + (b ? "enabled" : "disabled"));
         service.getState().isEnabled = b;
+        service.setAnnotationVisible(state);
     }
 
 
