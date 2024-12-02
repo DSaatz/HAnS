@@ -48,6 +48,22 @@ public class SettingsPageBuilder implements Configurable {
         JPanel generalTab = new JPanel();
         generalTab.setLayout(new BoxLayout(generalTab, BoxLayout.Y_AXIS));
 
+        // MainBar Settings Section
+        SectionBuilder mainBarSection = new SectionBuilder("MainBar Settings");
+        generalTab.add(mainBarSection.getPanel());
+        CheckboxBuilder mainBarCheckbox = new CheckboxBuilder(
+            "Enable MainBar",
+            "Toggles the visibility of the main menu bar."
+        );
+        generalTab.add(mainBarCheckbox.getPanel());
+
+        // Event Listener für die Checkbox
+        mainBarCheckbox.getCheckbox().addActionListener(new ActionListener() {
+            boolean isEnabled = mainBarCheckbox.getCheckbox().isSelected();
+            // TODO: Speichern des Zustands in den Einstellungen
+            showRestartDialog(); // Zeige Dialog für Neustart an
+        });
+     
         tabbedPane.addTab("General", generalTab);
 
 
@@ -131,6 +147,14 @@ public class SettingsPageBuilder implements Configurable {
         return panel;
     }
 
+    private void showRestartDialog() {
+        JOptionPane.showMessageDialog(
+            null,
+            "You need to restart the IDE for changes to take effect.",
+            "Restart Required",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
 
     @Override
     public boolean isModified() {
